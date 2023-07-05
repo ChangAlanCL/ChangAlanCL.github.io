@@ -1,87 +1,35 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Camera Web App</title>
-  <style>
-    #viewport {
-      width: 100%;
-      height: auto;
-      border: 5px solid pink;
-      object-fit: cover;
-    }
+<html lang=”en”>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="x-ua-compatible" content="ie=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    #cameraText {
-      position: absolute;
-      bottom: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 18px;
-      color: white;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    }
+		<!-- Name of the app -->
+		<title>Camera App (v0.2-alpha)</title>
 
-    #playButton {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 24px;
-      padding: 10px 20px;
-      background-color: rgba(255, 255, 255, 0.8);
-      border-radius: 50%;
-      cursor: pointer;
-    }
+		<!-- Link to main style sheet -->
+		<link rel="stylesheet" href="style.css"> 
+	</head>
+	<body>
 
-    /* Responsive styles */
-    @media (max-width: 768px) {
-      #viewport {
-        width: 100%;
-        height: auto;
-      }
-    }
-  </style>
-</head>
-<body>
-  <h1>Camera Web App (v0.1-alpha)</h1>
-  <button id="captureButton">Capture Photo</button>
-  <video id="viewport" muted></video>
-  <div id="cameraText">Camera Test</div>
-  <button id="playButton">▶</button>
+		<!-- Camera -->
+		<main id="camera">
 
-  <script>
-    const captureButton = document.getElementById('captureButton');
-    const viewport = document.getElementById('viewport');
-    const playButton = document.getElementById('playButton');
+		    <!-- Camera sensor -->
+		    <canvas id="camera--sensor"></canvas>
+		    
+		    <!-- Camera view -->
+		    <video id="camera--view" autoplay playsinline></video>
+		    
+		    <!-- Camera output -->
+		    <img src="//:0" alt="" id="camera--output">
 
-    // Function to handle camera access
-    function startCamera() {
-      navigator.mediaDevices.getUserMedia({ video: true })
-        .then(function (stream) {
-          // Display camera stream in the viewport
-          viewport.srcObject = stream;
-          viewport.onloadedmetadata = function () {
-            viewport.play();
-          };
-        })
-        .catch(function (error) {
-          console.log('Camera access denied:', error);
-        });
-    }
+		    <!-- Camera trigger -->
+		    <button id="camera--trigger">Take a picture</button>
 
-    // Event listener for the capture button
-    captureButton.addEventListener('click', function () {
-      // Code to capture photo from the camera stream
-      // and upload it to the cloud
-    });
+		</main>
 
-    // Event listener for the play button
-    playButton.addEventListener('click', function () {
-      viewport.play();
-      playButton.style.display = 'none';
-    });
-
-    // Start the camera when the page loads
-    startCamera();
-  </script>
-</body>
+		<!-- Reference to your JavaScript file -->
+		<script src="app.js"></script> 
+	</body>
 </html>
