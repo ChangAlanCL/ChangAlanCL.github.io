@@ -20,6 +20,18 @@
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     }
 
+    #playButton {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 24px;
+      padding: 10px 20px;
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
     /* Responsive styles */
     @media (max-width: 768px) {
       #viewport {
@@ -30,14 +42,16 @@
   </style>
 </head>
 <body>
-  <h1>Camera Web App</h1>
+  <h1>Camera Web App (v0.1-alpha)</h1>
   <button id="captureButton">Capture Photo</button>
-  <video id="viewport" autoplay></video>
+  <video id="viewport" muted></video>
   <div id="cameraText">Camera Test</div>
+  <button id="playButton">▶</button>
 
   <script>
     const captureButton = document.getElementById('captureButton');
     const viewport = document.getElementById('viewport');
+    const playButton = document.getElementById('playButton');
 
     // Function to handle camera access
     function startCamera() {
@@ -45,6 +59,9 @@
         .then(function (stream) {
           // Display camera stream in the viewport
           viewport.srcObject = stream;
+          viewport.onloadedmetadata = function () {
+            viewport.play();
+          };
         })
         .catch(function (error) {
           console.log('Camera access denied:', error);
@@ -55,6 +72,12 @@
     captureButton.addEventListener('click', function () {
       // Code to capture photo from the camera stream
       // and upload it to the cloud
+    });
+
+    // Event listener for the play button
+    playButton.addEventListener('click', function () {
+      viewport.play();
+      playButton.style.display = 'none';
     });
 
     // Start the camera when the page loads
