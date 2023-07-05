@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Camera Web App</title>
+  <style>
+    #viewport {
+      width: 100%;
+      height: auto;
+      border: 5px solid pink;
+    }
+
+    #cameraText {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 18px;
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Responsive styles */
+    @media (max-width: 768px) {
+      #viewport {
+        max-width: 100%;
+        height: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Camera Web App</h1>
+  <button id="captureButton">Capture Photo</button>
+  <video id="viewport" autoplay></video>
+  <div id="cameraText">Camera Test</div>
+
+  <script>
+    const captureButton = document.getElementById('captureButton');
+    const viewport = document.getElementById('viewport');
+
+    // Function to handle camera access
+    function startCamera() {
+      navigator.mediaDevices.getUserMedia({ video: true })
+        .then(function (stream) {
+          // Display camera stream in the viewport
+          viewport.srcObject = stream;
+        })
+        .catch(function (error) {
+          console.log('Camera access denied:', error);
+        });
+    }
+
+    // Event listener for the capture button
+    captureButton.addEventListener('click', function () {
+      // Code to capture photo from the camera stream
+      // and upload it to the cloud
+    });
+
+    // Start the camera when the page loads
+    startCamera();
+  </script>
+</body>
+</html>
